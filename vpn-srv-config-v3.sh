@@ -271,7 +271,6 @@ setup_firewall() {
     ufw --force disable
     ufw default deny incoming
     ufw default allow outgoing
-    ufw allow 22/tcp comment 'SSH'
     ufw allow 2053/tcp comment '3x-ui Panel'
     ufw --force enable
     
