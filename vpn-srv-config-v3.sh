@@ -374,7 +374,23 @@ main_install() {
     # Show info
     show_info
     
+    
     log "🎉 Installation completed successfully!"
+
+    mkdir /etc/ssl/3x-ui
+cd /etc/ssl/3x-ui
+openssl genrsa -out secret.key 2048
+openssl req -key secret.key -new -out cert.csr
+openssl x509 -signkey secret.key -in cert.csr -req -days 365 -out cert.crt
+
+echo "-----------------------"
+echo "Путь к файлу публичного ключа сертификата панели"
+echo "-----------------------"
+/etc/ssl/3x-ui/cert.crt
+echo "-----------------------"
+echo "Путь к файлу приватного ключа сертификата панели"
+echo "-----------------------"
+echo "/etc/ssl/3x-ui/secret.key"
 }
 
 # Fix existing installation
@@ -494,17 +510,4 @@ main() {
 # Run main function
 main "$@"
 
-mkdir /etc/ssl/3x-ui
-cd /etc/ssl/3x-ui
-openssl genrsa -out secret.key 2048
-openssl req -key secret.key -new -out cert.csr
-openssl x509 -signkey secret.key -in cert.csr -req -days 365 -out cert.crt
 
-echo "-----------------------"
-echo "Путь к файлу публичного ключа сертификата панели"
-echo "-----------------------"
-/etc/ssl/3x-ui/cert.crt
-echo "-----------------------"
-echo "Путь к файлу приватного ключа сертификата панели"
-echo "-----------------------"
-echo "/etc/ssl/3x-ui/secret.key"
