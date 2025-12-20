@@ -45,6 +45,9 @@ install_3x_ui() {
     # Start the service
     systemctl start x-ui
     sleep 10
+    # gennerate certs for panel
+    mkdir /etc/ssl/3x-ui && cd /etc/ssl/3x-ui && openssl genrsa -out secret.key 2048 && openssl req -key secret.key -new -out cert.csr && 
+openssl x509 -signkey secret.key -in cert.csr -req -days 365 -out cert.crt
     
     # Check if service is running
     if systemctl is-active --quiet x-ui; then
