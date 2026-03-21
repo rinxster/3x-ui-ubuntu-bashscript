@@ -276,6 +276,7 @@ setup_firewall() {
     ufw default deny incoming
     ufw default allow outgoing
     ufw allow 8443
+    ufw allow 80
     ufw allow 2053/tcp comment '3x-ui Panel'
     ufw --force enable
     
